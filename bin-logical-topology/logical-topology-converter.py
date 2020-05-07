@@ -1009,7 +1009,7 @@ cons_contracts = {}       # dict of consumer contracts
 uniOutsVrf = {}         # dict of universal output dicts for VRF tree, containing Tenant, VRF, BD
 uniOutsAp = {}          # dict of universal output dicts for AP tree, containg Tenant, AP, EPG, Static Ports
 
-valid_envs = ['medc','mpdc']
+valid_envs = ['CNS']
 env = ''
 script_dir = sys.path[0] + "/"
 
@@ -1039,7 +1039,7 @@ json_file = base_dir + "json-"+env+".json"
 with open(tenant_file) as tenant_data:
     tenants_raw = json.load(tenant_data)
 
-for item in tenants_raw:
+for item in tenants_raw['current']:
     temp_tenant = MyTenant(item['fvTenant']['attributes'])
     # tenants.append(temp_tenant)
     tenants[temp_tenant.getDn()] = temp_tenant
@@ -1047,7 +1047,7 @@ for item in tenants_raw:
 with open(vrf_file) as vrf_data:
     vrfs_raw = json.load(vrf_data)
 
-for item in vrfs_raw:
+for item in vrfs_raw['current']:
     temp_vrf = MyVrf(item['fvCtx']['attributes'])
     # vrfs.append(temp_vrf)
     vrfs[temp_vrf.getDn()] = temp_vrf
@@ -1055,7 +1055,7 @@ for item in vrfs_raw:
 with open(bd_file) as bd_data:
     bds_raw = json.load(bd_data)
 
-for item in bds_raw:
+for item in bds_raw['current']:
     temp_bd = MyBd(item['fvBD']['attributes'])
     #pdb.set_trace()
     for child in item['fvBD']['children']:
@@ -1072,7 +1072,7 @@ for item in bds_raw:
 with open(ap_file) as ap_data:
     aps_raw = json.load(ap_data)
 
-for item in aps_raw:
+for item in aps_raw['current']:
     temp_ap = MyAppProfile(item['fvAp']['attributes'])
     # aps.append(temp_ap)
     aps[temp_ap.getDn()] = temp_ap
@@ -1080,7 +1080,7 @@ for item in aps_raw:
 with open(epg_file) as epg_data:
     epgs_raw = json.load(epg_data)
 
-for item in epgs_raw:
+for item in epgs_raw['current']:
     temp_epg = MyEpg(item['fvAEPg']['attributes'])
     for child in item['fvAEPg']['children']:
         for key, value in child.iteritems():
@@ -1099,14 +1099,14 @@ for item in epgs_raw:
 with open(prov_contracts_file) as prov_contract_data:
     prov_contracts_raw = json.load(prov_contract_data)
     
-for item in prov_contracts_raw:
+for item in prov_contracts_raw['current']:
     temp_prov_contract = MyProvContract(item['fvRsProv']['attributes'])
     prov_contracts[temp_prov_contract.getDn()] = temp_prov_contract
 
 with open(cons_contracts_file) as cons_contract_data:
     cons_contracts_raw = json.load(cons_contract_data)
     
-for item in cons_contracts_raw:
+for item in cons_contracts_raw['current']:
     temp_cons_contract = MyProvContract(item['fvRsCons']['attributes'])
     cons_contracts[temp_cons_contract.getDn()] = temp_cons_contract
 

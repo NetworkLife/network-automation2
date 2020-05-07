@@ -4,7 +4,7 @@
 
 - name: ACI logical topology
   vars_files:
-    - ~/.vars-aci-credentials.yml
+    - var-files/vars-aci-credentials.yml
 #    - "{{ varfile }}"
   hosts: all
 
@@ -32,7 +32,7 @@
   #
   # Write tenant information to a file for processing later
   #
-  - copy: content="{{ out.existing }}" dest={{ base_dir }}{{ [group_names][0][0] }}/tenants-output.json
+  - copy: content="{{ out }}" dest={{ base_dir }}{{ [group_names][0][0] }}/tenants-output.json
 
   #
   # list of VRFs
@@ -51,13 +51,13 @@
   #
   # Write VRF information to a file for processing later
   #
-  - copy: content="{{ out.existing }}" dest={{ base_dir }}{{ [group_names][0][0] }}/vrfs-output.json
+  - copy: content="{{ out }}" dest={{ base_dir }}{{ [group_names][0][0] }}/vrfs-output.json
 
   #
   # list of BDs
   #
   - name: Get a list of BDs from ACI, use modified aci_bd_feld09 module to include subnet information
-    aci_bd_feld09:
+    aci_bd:
       state=query
       hostname="{{ inventory_hostname }}"
       username="{{ apic_user }}"
@@ -70,7 +70,7 @@
   #
   # Write BD information to a file for processing later
   #
-  - copy: content="{{ out.existing }}" dest={{ base_dir }}{{ [group_names][0][0] }}/bds-output.json
+  - copy: content="{{ out }}" dest={{ base_dir }}{{ [group_names][0][0] }}/bds-output.json
     
   #
   # list of APs
@@ -89,13 +89,13 @@
   #
   # Write AP information to a file for processing later
   #
-  - copy: content="{{ out.existing }}" dest={{ base_dir }}{{ [group_names][0][0] }}/aps-output.json
+  - copy: content="{{ out }}" dest={{ base_dir }}{{ [group_names][0][0] }}/aps-output.json
 
   #
   # list of EPGs
   #
   - name: Get a list of EPGs from ACI, use modified aci_epg_feld09 module to get a list of static ports
-    aci_epg_feld09:
+    aci_epg:
       state=query
       hostname="{{ inventory_hostname }}"
       username="{{ apic_user }}"
@@ -108,7 +108,7 @@
   #
   # Write EPG information to a file for processing later
   #
-  - copy: content="{{ out.existing }}" dest={{ base_dir }}{{ [group_names][0][0] }}/epgs-output.json
+  - copy: content="{{ out }}" dest={{ base_dir }}{{ [group_names][0][0] }}/epgs-output.json
 
   #
   # list of Provider Contracts
@@ -128,7 +128,7 @@
   #
   # Write provider contract information to a file for processing later
   #
-  - copy: content="{{ out.existing }}" dest={{ base_dir }}{{ [group_names][0][0] }}/provider-contracts-output.json
+  - copy: content="{{ out }}" dest={{ base_dir }}{{ [group_names][0][0] }}/provider-contracts-output.json
 
   #
   # list of Consumer Contracts
@@ -148,7 +148,7 @@
   #
   # Write consumer contract information to a file for processing later
   #
-  - copy: content="{{ out.existing }}" dest={{ base_dir }}{{ [group_names][0][0] }}/consumer-contracts-output.json
+  - copy: content="{{ out }}" dest={{ base_dir }}{{ [group_names][0][0] }}/consumer-contracts-output.json
 
 # This is the end, my friend
 ...
