@@ -5,9 +5,15 @@ Summary report for network automation webinar
 =============================================
 These playbooks and scripts are designed for Ansible 2.4. For a version compatible with Ansible 2.7 and added functionality check out the repository <aci-logical-topology-2.7>
 
-#############################################################
-### Work in progress: modifying them for Ansible 2.8.5. #####
-#############################################################
+#################################################################
+### Work in progress: modifying them with the following versions:
+### Python 2.7.16
+### ansible 2.8.5
+#################################################################
+## Modified pb-logical-topology.yml in order to use the default objects of Ansible for BD & EPG
+## Modified logical-topology-converter, "for" loops needed to append a ['current'] to work as expected
+#################################################################
+
 Usage:
 ======
 File structure:
